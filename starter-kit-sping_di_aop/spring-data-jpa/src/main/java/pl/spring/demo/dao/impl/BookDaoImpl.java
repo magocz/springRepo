@@ -33,12 +33,24 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public List<BookEntity> findBookByTitle(String title) {
-		return null;
+		List<BookEntity> matchingList = new ArrayList<BookEntity>();
+		for(BookEntity bookEntity : ALL_BOOKS){
+			if(bookEntity.getTitle().toLowerCase().startsWith(title.toLowerCase())){
+				matchingList.add(bookEntity);
+			}
+		}
+		return matchingList;
 	}
 
 	@Override
 	public List<BookEntity> findBooksByAuthor(String author) {
-		return null;
+		List<BookEntity> matchingList = new ArrayList<BookEntity>();
+		for(BookEntity bookEntity : ALL_BOOKS){
+			if(bookEntity.matchingAuthors(author)){
+				matchingList.add(bookEntity);
+			}
+		}
+		return matchingList;
 	}
 
 	@Override

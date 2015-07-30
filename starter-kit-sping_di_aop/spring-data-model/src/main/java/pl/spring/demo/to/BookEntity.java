@@ -49,5 +49,18 @@ public class BookEntity implements IdAware {
 	public void setId(Long nextBookId) {
 		this.id = nextBookId;
 	}
+	
+	public String toString(){
+		return this.id + " " + this.title + " " + this.getAthor();
+	}
+	
+	public boolean matchingAuthors(String data){
+		for(AthorTo athorTo : authors){
+			if(athorTo.matchingAuthors(data)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

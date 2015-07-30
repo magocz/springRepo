@@ -24,4 +24,14 @@ public class AthorTo {
 	public String toString(){
 		return this.firstName + " " + this.lastName;
 	}
+	
+	public boolean matchingAuthors(String data){
+		if(this.firstName.toLowerCase().startsWith(data.toLowerCase())){
+			return true;
+		}
+		if(this.lastName.toLowerCase().startsWith(data.toLowerCase())){
+			return true;
+		}
+		return false;
+	}
 }
