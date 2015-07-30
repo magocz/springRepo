@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.exception.BookNotNullIdException;
+import pl.spring.demo.to.BookEntity;
 import pl.spring.demo.to.BookTo;
 import pl.spring.demo.to.IdAware;
 
@@ -32,8 +33,8 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
     }
     
     private void addNewIdToBook(Object o, Object[] objects){
-    	 if (((BookTo) objects[0]).getId() == null) {
-    		 ((BookTo) objects[0]).setId(((BookDaoImpl) o).getNextBookId());
+    	 if (((BookEntity) objects[0]).getId() == null) {
+    		 ((BookEntity) objects[0]).setId(((BookDaoImpl) o).getNextBookId());
          }
     }
 
