@@ -27,11 +27,10 @@ public class BookServiceImplTest {
         // then
         assertNotNull(allBooks);
         assertFalse(allBooks.isEmpty());
-        assertEquals(6, allBooks.size());
+        assertEquals(7, allBooks.size());
     }
 
     @Test
-    @Ignore
     public void testShouldFindAllBooksByTitle() {
         // given
         final String title = "Opium w rosole";
@@ -40,6 +39,42 @@ public class BookServiceImplTest {
         // then
         assertNotNull(booksByTitle);
         assertFalse(booksByTitle.isEmpty());
+    }
+    
+    @Test
+    public void testShouldFindAllBooksByTitle2() {
+        // given
+        final String title = "rOm";
+        // when
+        List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
+        // then
+        assertNotNull(booksByTitle);
+        assertFalse(booksByTitle.isEmpty());
+        assertEquals(2, booksByTitle.size());
+    }
+    
+    @Test
+    public void testShouldFindAllBooksByAuthor() {
+        // given
+        final String author = "Wiliam";
+        // when
+        List<BookTo> booksByAuthor = bookService.findBooksByAuthor(author);
+        // then
+        assertNotNull(booksByAuthor);
+        assertFalse(booksByAuthor.isEmpty());
+        assertEquals(2, booksByAuthor.size());
+    }
+    
+    @Test
+    public void testShouldFindAllBooksByAuthor2() {
+        // given
+        final String author = "n";
+        // when
+        List<BookTo> booksByAuthor = bookService.findBooksByAuthor(author);
+        // then
+        assertNotNull(booksByAuthor);
+        assertFalse(booksByAuthor.isEmpty());
+        assertEquals(2, booksByAuthor.size());
     }
 
     @Test(expected = BookNotNullIdException.class)

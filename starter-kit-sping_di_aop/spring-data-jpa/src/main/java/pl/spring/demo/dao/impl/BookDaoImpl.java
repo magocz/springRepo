@@ -76,5 +76,6 @@ public class BookDaoImpl implements BookDao {
 		ALL_BOOKS.add(new BookEntity(4L, "Awantura w Niekłaju", "Edmund Niziurski"));
 		ALL_BOOKS.add(new BookEntity(5L, "Pan Samochodzik i Fantomas", "Zbigniew Nienacki"));
 		ALL_BOOKS.add(new BookEntity(6L, "Zemsta", "Aleksander Fredro"));
+		ALL_BOOKS.add(new BookEntity(7L, "Romeo i Julia 2", "Wiliam Szekspir"));
 	}
 }
