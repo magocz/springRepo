@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BookDaoImpl implements BookDao {
 
 	private final Set<BookEntity> ALL_BOOKS = new HashSet<>();

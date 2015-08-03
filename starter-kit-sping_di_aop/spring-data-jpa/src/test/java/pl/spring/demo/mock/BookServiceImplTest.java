@@ -6,7 +6,6 @@ package pl.spring.demo.mock;
  */
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.*;
 import org.mockito.internal.util.reflection.Whitebox;
