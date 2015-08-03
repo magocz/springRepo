@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.*;
+import org.mockito.internal.util.reflection.Whitebox;
+
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.mapper.BookMaper;
 import pl.spring.demo.service.impl.BookServiceImpl;
@@ -29,23 +31,24 @@ public class BookServiceImplTest {
     @Mock
     private BookDao bookDao;
     
-    private BookMaper bookMaper = new BookMaper();
+    private BookMaper bookMaper;
 
     @Before
     public void setUpt() {
         MockitoAnnotations.initMocks(this);
+        bookMaper = new BookMaper();
+        Whitebox.setInternalState(bookService, "bookMaper", bookMaper);
     }
 
     @Test
-    @Ignore
     public void testShouldSaveBook() {
         // given
         BookEntity book = new BookEntity(null, "title", "author");
-        Mockito.when(bookDao.save(book)).thenReturn(new BookEntity(1L, "title", "author"));
+        Mockito.when(bookDao.save(Mockito.any(BookEntity.class))).thenReturn(new BookEntity(1L, "title", "author"));
         // when
         BookTo result = bookService.saveBook(bookMaper.mapp(book));
         // then
-        Mockito.verify(bookDao).save(book);
+        Mockito.verify(bookDao).save(Mockito.any(BookEntity.class));
         assertEquals(1L, result.getId().longValue());
     }
 }

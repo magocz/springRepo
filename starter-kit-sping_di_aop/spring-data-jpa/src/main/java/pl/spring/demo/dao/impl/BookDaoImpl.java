@@ -4,7 +4,6 @@ import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.to.BookEntity;
-import pl.spring.demo.to.BookTo;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,9 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class BookDaoImpl implements BookDao {
 
 	private final Set<BookEntity> ALL_BOOKS = new HashSet<>();
@@ -56,7 +53,6 @@ public class BookDaoImpl implements BookDao {
 	@Override
 	@NullableId
 	public BookEntity save(BookEntity book) {
-
 		ALL_BOOKS.add(book);
 		return book;
 	}
