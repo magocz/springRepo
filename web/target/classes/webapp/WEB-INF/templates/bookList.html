@@ -3,10 +3,31 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Lista książek</title>
+    <link rel="stylesheet" th:href="@{/static/application.css}" href="/static/application.css" />
 </head>
 <body>
+<table>
+		<caption STYLE="caption-side: top">Tabela wszystkich ksiazek</caption>
+		<tr>
+        		<td > ID </td>
+        		<td > Tytul </td>
+        		<td > Autor </td>
+        		<td > Usun - POST </td>        		
+    	</tr>
     <div th:each="book : ${books}">
-        <p th:text="${book.title}">title</p>
+    	<tr>
+        		<td > <p th:text="${book.id}">id</p> </td>
+        		<td > <p th:text="${book.title}">title</p> </td>
+        		<td > <p th:text="${book.authors}">authors</p> </td>
+        		<td >
+        				<form action="" method="post">
+    					<input type="hidden" name="rm"  th:value="${book.id}" />
+    					<input type="submit" name="deliteButton"  value = "Usun" />
+						</form>
+				</td>
+				
+    	</tr>
     </div>
+ </table>
 </body>
 </html>

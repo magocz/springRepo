@@ -32,6 +32,20 @@ public class BookServiceImpl implements BookService {
     public List<BookTo> findBooksByAuthor(String author) {
         return BookMapper.map2To(bookRepository.findBookByAuthor(author));
     }
+    
+    @Override
+    @Transactional
+	public String removeBook(Long id) {
+    	if(bookRepository.exists(id)){
+    		String title = bookRepository.getOne(id).getTitle();		
+        	bookRepository.delete(id);
+        	System.out.println(title + " " + id.longValue()); 
+        	return title;
+    	}    	
+    	return null;
+	}
+    
+    
 
     @Override
     @Transactional(readOnly = false)
@@ -40,4 +54,27 @@ public class BookServiceImpl implements BookService {
         entity = bookRepository.save(entity);
         return BookMapper.map(entity);
     }
+
+	@Override
+	@Transactional
+	public String removeBook(BookTo book) {
+		if(bookRepository.exists(book.getId())){
+			bookRepository.delete(BookMapper.map(book));
+			return book.getTitle();
+		}
+		
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public void updateBook(BookTo book) {
+		bookRepository.updateBook(book.getId(), book.getAuthors(), book.getTitle());
+	}
+
+	@Override
+	public boolean exist(Long id) {
+		return bookRepository.exists(id);	
+	}
+	
 }

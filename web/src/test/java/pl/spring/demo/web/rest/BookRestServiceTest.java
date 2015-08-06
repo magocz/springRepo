@@ -1,5 +1,6 @@
 package pl.spring.demo.web.rest;
 
+import org.hibernate.sql.Delete;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.spring.demo.service.BookService;
@@ -23,6 +25,7 @@ import java.util.Arrays;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -84,5 +87,20 @@ public class BookRestServiceTest {
                 .content(json.getBytes()));
         // then
         response.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void testShouldDeleteBook() throws Exception {
+        // given
+        File file = FileUtils.getFileFromClasspath("classpath:pl/spring/demo/web/json/bookToDelete.json");
+        String json = FileUtils.readFileToString(file);
+        // when
+        ResultActions response = this.mockMvc.perform(delete("/book")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json.getBytes()));
+        // then
+        response.andExpect(status().isOk());
+        Mockito.verify(bookService).removeBook(Mockito.any(BookTo.class));
     }
 }

@@ -12,16 +12,39 @@ import java.util.List;
 @ResponseBody
 public class BookRestService {
 
-    @Autowired
-    private BookService bookService;
+	@Autowired
+	private BookService bookService;
 
-    @RequestMapping(value = "/books-by-title", method = RequestMethod.GET)
-    public List<BookTo> findBooksByTitle(@RequestParam("titlePrefix") String titlePrefix) {
-        return bookService.findBooksByTitle(titlePrefix);
-    }
+	@RequestMapping(value = "/books-by-title", method = RequestMethod.GET)
+	public List<BookTo> findBooksByTitle(@RequestParam("titlePrefix") String titlePrefix) {
+		return bookService.findBooksByTitle(titlePrefix);
+	}
 
-    @RequestMapping(value = "/book", method = RequestMethod.POST)
-    public BookTo saveBook(@RequestBody BookTo book) {
-        return bookService.saveBook(book);
-    }
+	@RequestMapping(value = "/book", method = RequestMethod.POST)
+	public BookTo saveBook(@RequestBody BookTo book) {
+		return bookService.saveBook(book);
+	}
+
+	@RequestMapping(value = "/book", method = RequestMethod.DELETE)
+	public String removeBook(@RequestBody BookTo book) {
+		bookService.removeBook(book);
+		return "removed";
+	}
+	
+	@RequestMapping(value = "/book-delete/{id}", method = RequestMethod.DELETE)
+	public String removeBook1(@PathVariable("id")Long id) {
+		if(bookService.removeBook(id) != null){
+			return "removed";
+		}
+		return "book not exist";
+	}
+
+	@RequestMapping(value = "/book", method = RequestMethod.PUT)
+	public BookTo updateBook(@RequestBody BookTo book) {
+		if(bookService.exist(book.getId())){
+				bookService.saveBook(book);
+				return book;
+		}
+		return null;
+	}
 }
